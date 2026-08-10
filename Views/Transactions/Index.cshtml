@@ -1,0 +1,196 @@
+@model IEnumerable<WebApplication1.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<<h1>Transaktionen</h1>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Suche & Filter
+        </div>
+
+        <div class="card-body">
+            <form asp-action="Index" method="get">
+
+                <div class="row g-2">
+
+                    <div class="col-md-4">
+                        <label class="form-label">Suche</label>
+                        <input type="text"
+                               name="search"
+                               value="@ViewBag.Search"
+                               class="form-control"
+                               placeholder="Beschreibung..." />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Kategorie</label>
+                        <select name="categoryId"
+                                class="form-select">
+
+                            <option value="">Alle</option>
+
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category.Value">
+                                    @category.Text
+                                </option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Von</label>
+                        <input type="date"
+                               name="fromDate"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label">Bis</label>
+                        <input type="date"
+                               name="toDate"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-1 d-flex align-items-end">
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            Suchen
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="row g-2 mt-2">
+
+                    <div class="col-md-3">
+                        <label class="form-label">Min. Betrag</label>
+                        <input type="number"
+                               name="minAmount"
+                               step="0.01"
+                               class="form-control" />
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Max. Betrag</label>
+                        <input type="number"
+                               name="maxAmount"
+                               step="0.01"
+                               class="form-control" />
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            Sortieren
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Index" method="get">
+
+                <select name="sort"
+                        class="form-select"
+                        onchange="this.form.submit()">
+
+                    <option value="">Neueste zuerst</option>
+
+                    <option value="date_asc">
+                        Älteste zuerst
+                    </option>
+
+                    <option value="amount_asc">
+                        Betrag aufsteigend
+                    </option>
+
+                    <option value="amount_desc">
+                        Betrag absteigend
+                    </option>
+
+                </select>
+
+            </form>
+
+            <a asp-action="Index"
+               class="btn btn-secondary mt-2">
+                Filter zurücksetzen
+            </a>
+
+        </div>
+    </div>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">
+            + Neue Transaktion
+        </a>
+    </p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Beschreibung</th>
+                <th>Kategorie</th>
+                <th>Typ</th>
+                <th>Betrag</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.date.ToString("dd.MM.yyyy")
+                    </td>
+
+                    <td>
+                        @item.description
+                    </td>
+
+                    <td>
+                        @item.category?.name
+                    </td>
+
+                    <td>
+                        @if (item.type == TransactionType.Income)
+                        {
+                            <span class="badge bg-success">Einnahme</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">Ausgabe</span>
+                        }
+                    </td>
+
+                    <td>
+                        @item.amount.ToString("C")
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit"
+                           asp-route-id="@item.Id"
+                           class="btn btn-sm btn-warning">
+                            Bearbeiten
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@item.Id"
+                           class="btn btn-sm btn-danger">
+                            Löschen
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

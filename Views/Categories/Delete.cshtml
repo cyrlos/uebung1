@@ -1,0 +1,61 @@
+@model WebApplication1.Models.Category
+
+@{
+    ViewData["Title"] = "Kategorie löschen";
+}
+
+<h1>Kategorie löschen</h1>
+
+<div class="alert alert-danger">
+    Möchtest du diese Kategorie wirklich löschen?
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <dl class="row">
+
+            <dt class="col-sm-4">
+                Name
+            </dt>
+
+            <dd class="col-sm-8">
+                @Model.name
+            </dd>
+
+            <dt class="col-sm-4">
+                Farbe
+            </dt>
+
+            <dd class="col-sm-8">
+                <span style="display:inline-block;
+                    width:30px;
+                    height:30px;
+                    background-color:@Model.color;
+                    border:1px solid #000;">
+                </span>
+
+                @Model.color
+            </dd>
+
+        </dl>
+
+        <form asp-action="Delete">
+
+            <input type="hidden"
+                   asp-for="Id" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+                Löschen
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Abbrechen
+            </a>
+
+        </form>
+
+    </div>
+</div>

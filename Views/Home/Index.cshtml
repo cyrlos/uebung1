@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>Dashboard</h1>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Kontostand
+                </h5>
+
+                <p class="card-text">
+                    @ViewBag.Balance €
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Einnahmen
+                </h5>
+
+                <p class="card-text">
+                    @ViewBag.Income €
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Ausgaben
+                </h5>
+
+                <p class="card-text">
+                    @ViewBag.Expense €
+                </p>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var transaction in Model)
+    {
+        <tr>
+            <td>
+                @transaction.date.ToString("dd.MM.yyyy")
+            </td>
+
+            <td>
+                @transaction.description
+            </td>
+
+            <td>
+                @transaction.category?.name
+            </td>
+
+            <td>
+                @if (transaction.type == TransactionType.Income)
+                {
+                    <span class="badge bg-success">Einnahme</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Ausgabe</span>
+                }
+            </td>
+
+            <td>
+                @if (transaction.type == TransactionType.Income)
+                {
+                    <span class="text-success">
+                        + @transaction.amount.ToString("C")
+                    </span>
+                }
+                else
+                {
+                    <span class="text-danger">
+                        - @transaction.amount.ToString("C")
+                    </span>
+                }
+            </td>
+        </tr>
+    }
+
+</div>

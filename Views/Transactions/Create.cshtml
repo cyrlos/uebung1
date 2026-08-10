@@ -1,0 +1,102 @@
+@model WebApplication1.Models.Transaction
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Neue Transaktion</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="type" class="form-label">
+                    Art
+                </label>
+
+                <select asp-for="type"
+                        class="form-select">
+                    <option value="Income">Einnahme</option>
+                    <option value="Expense">Ausgabe</option>
+                </select>
+
+                <span asp-validation-for="type"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="amount" class="form-label">
+                    Betrag
+                </label>
+
+                <input asp-for="amount"
+                       class="form-control"
+                       type="number"
+                       step="0.01"
+                       min="0.01" />
+
+                <span asp-validation-for="amount"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="date" class="form-label">
+                    Datum
+                </label>
+
+                <input asp-for="date"
+                       class="form-control"
+                       type="date" />
+
+                <span asp-validation-for="date"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="description" class="form-label">
+                    Beschreibung
+                </label>
+
+                <input asp-for="description"
+                       class="form-control" />
+
+                <span asp-validation-for="description"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="categoryId" class="form-label">
+                    Kategorie
+                </label>
+
+                <select asp-for="categoryId"
+                        class="form-select"
+                        asp-items="ViewBag.categoryId">
+                    <option value="">-- Kategorie auswählen --</option>
+                </select>
+
+                <span asp-validation-for="categoryId"
+                      class="text-danger"></span>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Speichern
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Abbrechen
+            </a>
+
+        </form>
+
+    </div>
+</div>

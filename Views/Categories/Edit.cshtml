@@ -1,0 +1,61 @@
+@model WebApplication1.Models.Category
+
+@{
+    ViewData["Title"] = "Kategorie bearbeiten";
+}
+
+<h1>Kategorie bearbeiten</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="name"
+                       class="form-label">
+                    Name
+                </label>
+
+                <input asp-for="name"
+                       class="form-control" />
+
+                <span asp-validation-for="name"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="color"
+                       class="form-label">
+                    Farbe
+                </label>
+
+                <input asp-for="color"
+                       type="color"
+                       class="form-control form-control-color" />
+
+                <span asp-validation-for="color"
+                      class="text-danger"></span>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Speichern
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Abbrechen
+            </a>
+
+        </form>
+
+    </div>
+</div>

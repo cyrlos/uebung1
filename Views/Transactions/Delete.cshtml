@@ -1,0 +1,73 @@
+@model WebApplication1.Models.Transaction
+
+@{
+    ViewData["Title"] = "Transaktion löschen";
+}
+
+<h1>Transaktion löschen</h1>
+
+<div class="alert alert-danger">
+    Möchtest du diese Transaktion wirklich löschen?
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <dl class="row">
+
+            <dt class="col-sm-4">
+                Datum
+            </dt>
+
+            <dd class="col-sm-8">
+                @Model.date.ToString("dd.MM.yyyy")
+            </dd>
+
+
+            <dt class="col-sm-4">
+                Beschreibung
+            </dt>
+
+            <dd class="col-sm-8">
+                @Model.description
+            </dd>
+
+
+            <dt class="col-sm-4">
+                Betrag
+            </dt>
+
+            <dd class="col-sm-8">
+                @Model.amount.ToString("C")
+            </dd>
+
+
+            <dt class="col-sm-4">
+                Kategorie
+            </dt>
+
+            <dd class="col-sm-8">
+                @Model.category?.name
+            </dd>
+
+        </dl>
+
+        <form asp-action="Delete">
+
+            <input type="hidden"
+                   asp-for="Id" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+                Löschen
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Abbrechen
+            </a>
+
+        </form>
+
+    </div>
+</div>

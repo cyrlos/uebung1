@@ -1,0 +1,99 @@
+@model List<WebApplication1.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Berichte";
+}
+
+<h1>Berichte</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="mb-3">
+
+            <a asp-action="Daily"
+               class="btn btn-outline-primary">
+                Heute
+            </a>
+
+            <a asp-action="Weekly"
+               class="btn btn-outline-primary">
+                Diese Woche
+            </a>
+
+            <a asp-action="Monthly"
+               class="btn btn-outline-primary">
+                Dieser Monat
+            </a>
+
+        </div>
+
+        <form asp-action="Index" method="get">
+
+            <div class="row g-2">
+
+                <div class="col-md-4">
+                    <label class="form-label">Von</label>
+                    <input type="date"
+                           name="fromDate"
+                           class="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Bis</label>
+                    <input type="date"
+                           name="toDate"
+                           class="form-control" />
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+                    <button class="btn btn-primary">
+                        Auswerten
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Einnahmen</h5>
+                <h3 class="text-success">
+                    @ViewBag.Income.ToString("C")
+                </h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Ausgaben</h5>
+                <h3 class="text-danger">
+                    @ViewBag.Expense.ToString("C")
+                </h3>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Saldo</h5>
+                <h3>
+                    @ViewBag.Balance.ToString("C")
+                </h3>
+            </div>
+        </div>
+    </div>
+
+</div>
